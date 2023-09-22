@@ -1,0 +1,8 @@
+transformers==4.27.2
+datasets==2.9.0
+accelerate==0.17.1
+evaluate==0.4.0
+bitsandbytes==0.37.1
+loralib
+peft==0.2.0
+pynvml

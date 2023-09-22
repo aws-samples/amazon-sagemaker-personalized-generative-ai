@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "genai-personalized"
+version = "0.1.0"
+description = ""
+authors = ["Arlind Nocaj <arlnocaj@amazon.com>"]
+readme = "README.md"
+packages = [{include = "genai_personalized"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+aws-cdk-lib = "2.85.0"
+constructs = ">=10.0.0,<11.0.0"
+kaggle = "^1.5.16"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "6.2.5"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
