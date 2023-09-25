@@ -117,19 +117,16 @@ def handler(event, context):
     job['InputDataConfig'][0]['DataSource']['S3DataSource']['S3Uri'] = s3_training_data
     job['ResourceConfig']['InstanceType'] = 'ml.g5.2xlarge' 
 
-    # Define the JSON data
     json_data = {
         "instance_prompt": "a photo of a zwx person",
         "class_prompt": "a photo of a person"
     }
 
-    # Convert the JSON data to a string
     json_string = json.dumps(json_data)
     parts = s3_training_data.split('/')
     bucket_name = parts[2]
     object_key = '/'.join(parts[3:]) + "dataset_info.json"
 
-    # Upload the JSON data to the S3 bucket
     s3_client.put_object(
         Bucket=bucket_name,
         Key=object_key,
@@ -148,7 +145,6 @@ def handler(event, context):
             VpcConfig=job['VpcConfig'],
             Tags=job['Tags'] if 'Tags' in job else [])
     else:
-        # Because VpcConfig cannot be empty like HyperParameters or Tags
         resp = sm.create_training_job(
             TrainingJobName=training_job_name, AlgorithmSpecification=job['AlgorithmSpecification'], RoleArn=job['RoleArn'],
             InputDataConfig=job['InputDataConfig'], OutputDataConfig=job['OutputDataConfig'],

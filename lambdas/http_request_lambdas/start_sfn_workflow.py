@@ -23,8 +23,6 @@ def handler(event, context):
     
     logger.info(event)
     s3_training_data = os.environ['S3_TRAINING_DATA']
-    # httpMethod = event['httpMethod']
-    # path = event['path']
 
     body = {
         "s3_training_data": s3_training_data,
@@ -36,14 +34,11 @@ def handler(event, context):
     path = '/finetune'
     
     if httpMethod == postMethod and path == finetunePath:
-        # response = saveModel(json.loads(event['body']))
         response = saveModel(body)
     else:
         response = buildResponse(404, 'Not Found')
     return response
 
-
-# Request a new training job. It starts the Step Function workflow and updates the DynamoDB table
 def saveModel(requestBody):
     step_function_arn = os.environ['STEP_FUNCTION_ARN']
     model_params = {

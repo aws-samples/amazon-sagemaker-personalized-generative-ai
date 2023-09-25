@@ -16,14 +16,12 @@ table = dynamodb.Table(dynamodbTableName)
 
 def handler(event, context):
 
-    # bucket = 'ab-model-store-32987'
     training_job_name = event['Payload']['training_job_name']
     user_id = event['Payload']['user_id']
     model_id = event['Payload']['model_id']
     key = 'model-store/' + training_job_name + '/output/model.tar.gz'
-    # key = 'output-fine-tuned-sd/output/' + training_job_name + '/output/model.tar.gz'
     
-    response = table.update_item(
+    table.update_item(
         Key={
             'UserID': user_id,
             'ModelID': model_id
@@ -38,7 +36,6 @@ def handler(event, context):
     input_tar_file = s3_client.get_object(Bucket = s3_model_store_bucket_name, Key = key)
     input_tar_content = input_tar_file['Body'].read()
     
-    # destination_bucket = 'ab-model-unzipped-83681'
     unzipped_artifacts_s3_path = ('/model-artifact/' + training_job_name + '/')
 
     with tarfile.open(fileobj = BytesIO(input_tar_content)) as tar:

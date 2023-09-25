@@ -63,8 +63,6 @@ def getModel(UserID, ModelID):
     except:
         logger.exception('Error Handling')
 
-
-# Request a new training job. It starts the Step Function workflow and updates the DynamoDB table
 def saveModel(requestBody):
     
     model_params = {
@@ -96,7 +94,6 @@ def saveModel(requestBody):
     except:
         logger.exception('Error Handling')
 
-# To modify a model, not implemented
 def modifyModel(UserID, updateKey, updateValue):
     try:
         response = table.update_item(
@@ -117,7 +114,6 @@ def modifyModel(UserID, updateKey, updateValue):
         return buildResponse(200, body)
     except:
         logger.exception('Error Handling')
-
 
 def buildResponse(statusCode, body=None):
     response = {

@@ -132,7 +132,6 @@ table = dynamodb.Table(dynamodbTableName)
         
 def handler(event,context):
     
-    # model_artifact_path = 's3://ab-model-unzipped-83681/' + event['unzipped_artifacts_s3_path']
     model_artifact_path = event['Payload']['unzipped_artifacts_s3_path']
     
     serving_properties = """engine=Python

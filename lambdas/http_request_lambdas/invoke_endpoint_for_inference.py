@@ -11,7 +11,7 @@ from io import BytesIO
 import base64
 from base64 import b64encode
 
-ENDPOINT_NAME = os.environ['MULTI_MODEL_ENDPOINT_NAME'] #'sd-fine-tuned-mme'
+ENDPOINT_NAME = os.environ['MULTI_MODEL_ENDPOINT_NAME']
 runtime = boto3.client('sagemaker-runtime')
   
 def handler(event, context):

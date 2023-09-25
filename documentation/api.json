@@ -1,0 +1,139 @@
+{
+	"info": {
+		"_postman_id": "9c23dc25-8605-461b-aafa-281b50c8bae3",
+		"name": "GenAI SaaS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10875099",
+		"_collection_link": "https://winter-flare-457415.postman.co/workspace/%255BAWS%255D-gen-ai-saas-arch-project~9b6ba3f8-4af3-4eed-b71a-d43b25893051/collection/27171542-9c23dc25-8605-461b-aafa-281b50c8bae3?action=share&source=collection_link&creator=10875099"
+	},
+	"item": [
+		{
+			"name": "Check UserID models",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://zj0fiuebc4.execute-api.us-east-1.amazonaws.com/prod/model?UserID=tomcruise73&ModelID=L312A",
+					"protocol": "https",
+					"host": [
+						"zj0fiuebc4",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"prod",
+						"model"
+					],
+					"query": [
+						{
+							"key": "UserID",
+							"value": "tomcruise73"
+						},
+						{
+							"key": "ModelID",
+							"value": "L312A"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Fine Tuning job",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"UserID\":\"testing2\",\n    \"ModelID\":\"eltjhlk\",\n    \"s3_fine_tuning_images_path\":\"s3://ab-training-data-78652/bradpitt/\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://zj0fiuebc4.execute-api.us-east-1.amazonaws.com/prod/finetune",
+					"protocol": "https",
+					"host": [
+						"zj0fiuebc4",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"prod",
+						"finetune"
+					],
+					"query": [
+						{
+							"key": "UserID",
+							"value": "398742",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Inference",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Image is found on the respose on the data field",
+							"const imageBase64 = pm.response.text();",
+							"",
+							"// This is just a simple template with a placeholder for a base64 image",
+							"var template = `<img src=\"data:image/png;base64,{{image}}\" />`",
+							"",
+							"",
+							"// Set visualizer - Inits handle bars and passes the image variable to the template",
+							"pm.visualizer.set(template, {",
+							"    // Pass the response body parsed as JSON as `data`",
+							"    image: imageBase64",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://o9eqtf93o4.execute-api.eu-west-1.amazonaws.com/prod/inference?model_name=ft-st-angelinajolie21-J923L.tar.gz",
+					"protocol": "https",
+					"host": [
+						"o9eqtf93o4",
+						"execute-api",
+						"eu-west-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"prod",
+						"inference"
+					],
+					"query": [
+						{
+							"key": "model_name",
+							"value": "ft-st-angelinajolie21-J923L.tar.gz"
+						},
+						{
+							"key": "model_name",
+							"value": "ft-sd-david1994-HJSHK12.tar.gz",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
